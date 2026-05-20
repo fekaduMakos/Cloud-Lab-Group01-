@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Computing Lab - Group Assignment</title>
+    <meta name="description" content="SEng7232 Fundamentals of Cloud Computing Lab Assignment - Wachemo University. Group project showcasing cloud storage services and CloudSim simulation analysis.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        /* Modern Design System & CSS Variables */
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #111827;
+            --glass-bg: rgba(17, 24, 39, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --accent-primary: #6366f1; /* Indigo */
+            --accent-secondary: #a855f7; /* Purple */
+            --accent-green: #10b981; /* Emerald */
+            --accent-gradient: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* Container & Grid Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Hero / Header Section */
+        header {
+            text-align: center;
+            margin-bottom: 5rem;
+            position: relative;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50px;
+            color: #818cf8;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #c7d2fe, #e9d5ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            animation: fadeIn 1s ease;
+        }
+
+        .course-info {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .course-info i {
+            color: var(--accent-primary);
+        }
+
+        /* Sections Styling */
+        section {
+            margin-bottom: 6rem;
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+        }
+
+        h2 i {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(99, 102, 241, 0.25);
+            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.15);
+        }
+
+        /* Team Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .member-card {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e1b4b, #311042);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-primary);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .member-card:hover .avatar {
+            transform: scale(1.1);
+            border-color: var(--accent-secondary);
+            color: var(--text-primary);
+            background: var(--accent-gradient);
+        }
+
+        .member-info h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .member-id {
+            font-family: monospace;
+            font-size: 0.95rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .member-role {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Storage Grid */
+        .storage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+        }
+
+        .storage-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .storage-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 0;
+        }
+
+        .storage-card:hover::before {
+            opacity: 0.04;
+        }
+
+        .storage-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        /* Specific Provider Brand Colors on Hover */
+        .storage-card:nth-child(1) .storage-icon { color: #4285F4; } /* Google Drive */
+        .storage-card:nth-child(2) .storage-icon { color: #0078D4; } /* OneDrive */
+        .storage-card:nth-child(3) .storage-icon { color: #0061FE; } /* Dropbox */
+        .storage-card:nth-child(4) .storage-icon { color: #FF9900; } /* AWS S3 */
+        .storage-card:nth-child(5) .storage-icon { color: #D82C23; } /* Mega */
+
+        .storage-card:hover .storage-icon {
+            transform: translateY(-8px) scale(1.05);
+        }
+
+        .storage-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .storage-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* CloudSim Section */
+        .cloudsim-content {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (max-width: 968px) {
+            .cloudsim-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cloudsim-text p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .cloudsim-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(168, 85, 247, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .feature-item i {
+            font-size: 1.8rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-item h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .feature-item p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .accent-text {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Header Section -->
+        <header>
+            <span class="badge">Lab Assignment Group 01</span>
+            <h1>Cloud Computing Lab Showcase</h1>
+            <div class="course-info">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>SEng7232 Fundamentals of Cloud Computing | Wachemo University</span>
+            </div>
+        </header>
+
+        <!-- Team Members Section -->
+        <section id="team">
+            <h2><i class="fa-solid fa-users"></i> Team Members</h2>
+            <div class="glass-card team-grid">
+                
+                <!-- Lead Member - Fekadu Markos -->
+                <div class="member-card">
+                    <div class="avatar"><i class="fa-solid fa-user-gear"></i></div>
+                    <div class="member-info">
+                        <h3>Fekadu Markos</h3>
+                        <div class="member-id">WCU/1027/15</div>
+                        <span class="member-role">Team Lead & Developer</span>
+                    </div>
+                </div>
+
+                <!-- Member 2 -->
+                <div class="member-card">
+                    <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                    <div class="member-info">
+                        <h3>Student Name 2</h3>
+                        <div class="member-id">WCU/XXXX/XX</div>
+                        <span class="member-role">Cloud Systems Architect</span>
+                    </div>
+                </div>
+
+                <!-- Member 3 -->
+                <div class="member-card">
+                    <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                    <div class="member-info">
+                        <h3>Student Name 3</h3>
+                        <div class="member-id">WCU/XXXX/XX</div>
+                        <span class="member-role">Simulation Engineer</span>
+                    </div>
+                </div>
+
+                <!-- Member 4 -->
+                <div class="member-card">
+                    <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                    <div class="member-info">
+                        <h3>Student Name 4</h3>
+                        <div class="member-id">WCU/XXXX/XX</div>
+                        <span class="member-role">QA & Documentation</span>
+                    </div>
+                </div>
+
+                <!-- Member 5 -->
+                <div class="member-card">
+                    <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                    <div class="member-info">
+                        <h3>Student Name 5</h3>
+                        <div class="member-id">WCU/XXXX/XX</div>
+                        <span class="member-role">Infrastructure Analyst</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Cloud Storage Services Section -->
+        <section id="services">
+            <h2><i class="fa-solid fa-cloud-arrow-up"></i> Cloud Storage Services Used</h2>
+            <div class="storage-grid">
+                
+                <!-- Google Drive -->
+                <div class="glass-card storage-card">
+                    <i class="fa-brands fa-google-drive storage-icon"></i>
+                    <h3>Google Drive</h3>
+                    <p>Highly accessible and user-friendly object storage featuring rich collaboration tools and document synchronization.</p>
+                </div>
+
+                <!-- OneDrive -->
+                <div class="glass-card storage-card">
+                    <i class="fa-brands fa-windows storage-icon"></i>
+                    <h3>OneDrive</h3>
+                    <p>Deeply integrated Microsoft environment offering robust backup, automated synchronization, and cloud storage.</p>
+                </div>
+
+                <!-- Dropbox -->
+                <div class="glass-card storage-card">
+                    <i class="fa-brands fa-dropbox storage-icon"></i>
+                    <h3>Dropbox</h3>
+                    <p>Pioneering cloud storage service renowned for its reliable and high-speed delta-sync file sharing capabilities.</p>
+                </div>
+
+                <!-- AWS S3 -->
+                <div class="glass-card storage-card">
+                    <i class="fa-brands fa-aws storage-icon"></i>
+                    <h3>Amazon S3</h3>
+                    <p>Industry-standard, highly durable object storage built for developer-focused backend asset hosting and backup solutions.</p>
+                </div>
+
+                <!-- Mega -->
+                <div class="glass-card storage-card">
+                    <i class="fa-solid fa-m storage-icon"></i>
+                    <h3>Mega</h3>
+                    <p>Secure, user-controlled end-to-end encrypted cloud storage offering generous storage quotas and privacy protection.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CloudSim Summary Section -->
+        <section id="cloudsim">
+            <h2><i class="fa-solid fa-microchip"></i> CloudSim Simulation Framework</h2>
+            <div class="glass-card cloudsim-content">
+                <div class="cloudsim-text">
+                    <p>In this lab, we use <strong>CloudSim</strong>, a powerful simulation framework that enables the modeling and simulation of full-scale Cloud Computing environments.</p>
+                    <p>Deploying virtualized cloud applications in real-world large-scale datacenters is highly expensive and requires complex setup configurations. CloudSim resolves this by letting us experiment with resource provisioning, scheduling algorithms, and workload allocations virtually.</p>
+                    <p>It provides abstract classes and tools to evaluate different cloud policies under high-load virtual environments, helping us analyze system performance and energy metrics before actual cloud deployments.</p>
+                </div>
+                <div class="cloudsim-features">
+                    
+                    <div class="feature-item">
+                        <i class="fa-solid fa-server"></i>
+                        <h4>Datacenters & Hosts</h4>
+                        <p>Simulating the physical hardware infrastructure including clusters, memory, and CPU cores.</p>
+                    </div>
+
+                    <div class="feature-item">
+                        <i class="fa-solid fa-cubes"></i>
+                        <h4>Virtual Machines</h4>
+                        <p>Modeling customizable VM allocation and provisioning strategies on top of physical hosts.</p>
+                    </div>
+
+                    <div class="feature-item">
+                        <i class="fa-solid fa-tasks"></i>
+                        <h4>Cloudlets (Tasks)</h4>
+                        <p>Defining user application workloads, task lengths, and processing resource demands.</p>
+                    </div>
+
+                    <div class="feature-item">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <h4>Policy Benchmarking</h4>
+                        <p>Analyzing and plotting execution time, operational costs, SLA violations, and resource utilization.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Section -->
+        <footer>
+            <p>&copy; 2026 Wachemo University Department of Software Engineering. All Rights Reserved.</p>
+            <p>Lab Showcase crafted with passion by <span class="accent-text">Group 01</span></p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
