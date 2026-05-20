@@ -216,16 +216,16 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Storage Grid */
+        /* Storage Grid - 5 in one row */
         .storage-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
         }
 
         .storage-card {
             text-align: center;
-            padding: 3rem 2rem;
+            padding: 2rem 1rem;
             position: relative;
             overflow: hidden;
         }
@@ -267,16 +267,9 @@
 
         .storage-card h3 {
             font-family: 'Outfit', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 0.75rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .storage-card p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+            margin-bottom: 0;
             position: relative;
             z-index: 1;
         }
@@ -438,35 +431,30 @@
                 <div class="glass-card storage-card">
                     <i class="fa-brands fa-google-drive storage-icon"></i>
                     <h3>Google Drive</h3>
-                    <p>Highly accessible and user-friendly object storage featuring rich collaboration tools and document synchronization.</p>
                 </div>
 
                 <!-- OneDrive -->
                 <div class="glass-card storage-card">
                     <i class="fa-brands fa-windows storage-icon"></i>
                     <h3>OneDrive</h3>
-                    <p>Deeply integrated Microsoft environment offering robust backup, automated synchronization, and cloud storage.</p>
                 </div>
 
                 <!-- Dropbox -->
                 <div class="glass-card storage-card">
                     <i class="fa-brands fa-dropbox storage-icon"></i>
                     <h3>Dropbox</h3>
-                    <p>Pioneering cloud storage service renowned for its reliable and high-speed delta-sync file sharing capabilities.</p>
                 </div>
 
                 <!-- Box.com -->
                 <div class="glass-card storage-card">
                     <i class="fa-solid fa-box storage-icon"></i>
                     <h3>Box.com</h3>
-                    <p>Secure content management, workflow automation, and collaborative cloud storage optimized for modern enterprise workspaces.</p>
                 </div>
 
                 <!-- Mega -->
                 <div class="glass-card storage-card">
                     <i class="fa-solid fa-m storage-icon"></i>
                     <h3>Mega</h3>
-                    <p>Secure, user-controlled end-to-end encrypted cloud storage offering generous storage quotas and privacy protection.</p>
                 </div>
 
             </div>
